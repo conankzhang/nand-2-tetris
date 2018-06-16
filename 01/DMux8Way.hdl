@@ -7,7 +7,11 @@
  * 8-way demultiplexor:
  * {a, b, c, d, e, f, g, h} = {in, 0, 0, 0, 0, 0, 0, 0} if sel == 000
  *                            {0, in, 0, 0, 0, 0, 0, 0} if sel == 001
- *                            etc.
+ *                            {0, 0, in, 0, 0, 0, 0, 0} if sel == 010
+ *                            {0, 0, 0, in, 0, 0, 0, 0} if sel == 011
+ *                            {0, 0, 0, 0, in, 0, 0, 0} if sel == 100
+ *                            {0, 0, 0, 0, 0, in, 0, 0} if sel == 101
+ *                            {0, 0, 0, 0, 0, 0, in, 0} if sel == 110
  *                            {0, 0, 0, 0, 0, 0, 0, in} if sel == 111
  */
 
@@ -16,5 +20,19 @@ CHIP DMux8Way {
     OUT a, b, c, d, e, f, g, h;
 
     PARTS:
-    // Put your code here:
+    DMux4Way(in=in, sel=sel[0..1], a=a1, b=b1, c=c1, d=d1);
+
+    // Choose between DMux and false based on MSB
+    Mux(a=a1, b=false, sel=sel[2], out=a);
+    Mux(a=b1, b=false, sel=sel[2], out=b);
+    Mux(a=c1, b=false, sel=sel[2], out=c);
+    Mux(a=d1, b=false, sel=sel[2], out=d);
+
+    DMux4Way(in=in, sel=sel[0..1], a=e1, b=f1, c=g1, d=h1);
+
+    // Choose between DMux and false based on MSB
+    Mux(a=false, b=e1, sel=sel[2], out=e);
+    Mux(a=false, b=f1, sel=sel[2], out=f);
+    Mux(a=false, b=g1, sel=sel[2], out=g);
+    Mux(a=false, b=h1, sel=sel[2], out=h);
 }
