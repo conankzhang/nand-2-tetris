@@ -17,4 +17,15 @@ CHIP PC {
 
     PARTS:
     // Put your code here:
+    // Choose between load and inc
+    Inc16(in=regOut, out=incOut);
+    Mux16(a=regOut, b=in, sel=load, out=loadOut);
+    Mux16(a=in, b=incOut, sel=inc, out=loadIncOut);
+    Mux16(a=loadIncOut, b=loadOut, sel=load, out=incLoadOut);
+
+    // Choose between incLoadOut or reset
+    Mux16(a=in, b[0..15]=false, sel=reset, out=resetOut);
+    Mux16(a=incLoadOut, b=resetOut, sel=reset, out=resetIncLoadOut);
+
+    Register(in=resetIncLoadOut, load=true, out=out, out=regOut);
 }
