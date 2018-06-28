@@ -55,16 +55,31 @@ CHIP CPU {
     // Wire instruction[3] to writeM
     Mux(a=false, b=instruction[3], sel=instruction[15], out=writeM);
 
+    // Jump bits
+    Not(in=aluNg, out=aluPosTemp);
+    Mux(a=aluPosTemp, b=false, sel=aluZr, out=aluPos);
+    And(a=instruction[0], b=aluPos, out=posOut);
+    And(a=instruction[1], b=aluZr, out=zrOut);
+    And(a=instruction[2], b=aluNg, out=ngOut);
+
+    Or(a=posOut, b=zrOut, out=jumpTemp);
+    Or(a=jumpTemp, b=ngOut, out=jumpOut);
+
     // Load bits
     And(a=instruction[0], b=instruction[1], out=loadTemp);
-    And(a=loadTemp, b=instruction[2], out=loadOut);
+    And(a=loadTemp, b=instruction[2], out=loadAndOut);
+    Mux(a=false, b=loadAndOut, sel=instruction[15], out=loadOut);
+
+    Mux(a=jumpOut, b=loadOut, sel=loadOut, out=loadJumpOut);
+    Mux(a=false, b=loadJumpOut, sel=instruction[15], out=loadJumpInstructionOut);
 
     // Inc bits
     Or(a=instruction[0], b=instruction[1], out=incOrTemp);
     Or(a=incOrTemp, b=instruction[2], out=incOrOut);
     Not(in=incOrOut, out=notIncOrOut);
     Mux(a=true, b=notIncOrOut, sel=instruction[15], out=incOut);
+    Mux(a=true, b=incOut, sel=jumpOut, out=incOutFinal);
 
     // // Control
-    PC(in=aRegisterOut, load=loadOut, inc=incOut, reset=reset, out[0..14]=pc);
+    PC(in=aRegisterOut, load=loadJumpInstructionOut, inc=incOutFinal, reset=reset, out[0..14]=pc);
 }
