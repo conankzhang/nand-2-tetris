@@ -27,5 +27,30 @@ CHIP Memory {
     OUT out[16];
 
     PARTS:
-    // Put your code here:
+    // IO Out
+    Screen(in=in, load=load, address=address[0..12], out=screenOut);
+    Keyboard(out=keyboardOut);
+    Or(a=address[0], b=address[1], out=address0);
+    Or(a=address0, b=address[2], out=address1);
+    Or(a=address1, b=address[3], out=address2);
+    Or(a=address2, b=address[4], out=address3);
+    Or(a=address3, b=address[5], out=address4);
+    Or(a=address4, b=address[6], out=address5);
+    Or(a=address5, b=address[7], out=address6);
+    Or(a=address6, b=address[8], out=address7);
+    Or(a=address7, b=address[9], out=address8);
+    Or(a=address8, b=address[10], out=address9);
+    Or(a=address9, b=address[11], out=address10);
+    Or(a=address10, b=address[12], out=address11);
+    Or(a=address11, b=address[13], out=address12);
+    Or(a=address12, b=address[14], out=screenOrKey);
+
+    // Select between screen and keyboard
+    Mux16(a=screenOut, b=keyboardOut, sel=screenOrKey, out=ioOut);
+
+    // 16K Out
+    RAM16K(in=in, load=load, address=address[0..13], out=ramOut);
+
+    // Select between ram and io
+    Mux16(a=ramOut, b=ioOut, sel=address[14], out=out);
 }
