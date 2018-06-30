@@ -3,4 +3,5 @@ class Converter:
         return format(value, '016b')
 
     def convert_c_instruction(self, dest, comp, jump):
-        return "okay"
+        begin = '111'
+        return begin

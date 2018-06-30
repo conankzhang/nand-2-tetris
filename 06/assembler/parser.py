@@ -15,7 +15,6 @@ class Parser:
         return self.converter.convert_a_instruction(value)
 
     def _parse_c_instruction(self, line):
-        begin = '111'
         dest = line[:line.index("=")]
         comp = line[line.index("=")+1:]
         jump = None
