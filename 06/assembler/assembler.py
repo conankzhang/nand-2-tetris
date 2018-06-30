@@ -5,7 +5,7 @@ class Assembler:
     def __init__(self, file):
         self.file = file
 
-    def handle_file(self):
+    def assemble(self):
         file_in = open(self.file, 'r')
 
         file_name = os.path.splitext(file_in.name)[0]
