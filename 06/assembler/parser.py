@@ -24,11 +24,17 @@ class Parser:
             dest = line[:line.index("=")].strip()
             comp = line[line.index("=")+1:].strip()
 
+            if line.find("/") is not -1:
+                comp = line[line.index("=")+1:line.index("/")].strip()
+
         jump = None
 
         if line.find(";") is not -1:
             jump = line[line.index(";")+1:].strip()
             comp = line[:line.index(";")].strip()
+
+            if line.find("/") is not -1:
+                jump = line[line.index(";")+1:line.index("/")].strip()
 
             if line.find("=") is not -1:
                 comp = line[line.index("=")+1:line.index(";")].strip()
