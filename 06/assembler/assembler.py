@@ -14,4 +14,8 @@ class Assembler:
         parser = Parser()
         for line in file_in:
             if(not line.isspace() and not line.startswith('/')):
-                parser.parse(line)
+                instruction = parser.parse(line)
+
+                if(instruction is not None):
+                    file_out.write(instruction)
+                    file_out.write('\n')
