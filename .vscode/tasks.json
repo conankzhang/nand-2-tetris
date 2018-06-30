@@ -6,7 +6,7 @@
         {
             "label": "Assemble Add.asm",
             "type": "shell",
-            "command": "python ./06/assembler/assembler.py ./06/add/Add.asm",
+            "command": "python ./06/assembler/__main__.py ./06/add/Add.asm",
             "group": {
                 "kind": "build",
                 "isDefault": true

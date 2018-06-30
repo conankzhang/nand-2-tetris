@@ -1,10 +1,15 @@
 import sys
 import os
 
-file_in = open(sys.argv[1], 'r')
+class Assembler:
+    def __init__(self, file):
+        self.file = file
 
-file_name = os.path.splitext(file_in.name)[0]
-file_out = open(file_name + '.hack', 'w')
+    def handle_file(self):
+        file_in = open(self.file, 'r')
 
-for line in file_in:
-    file_out.write(line)
+        file_name = os.path.splitext(file_in.name)[0]
+        file_out = open(file_name + '.hack', 'w')
+
+        for line in file_in:
+            file_out.write(line)
