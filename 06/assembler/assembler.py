@@ -13,4 +13,5 @@ class Assembler:
 
         parser = Parser()
         for line in file_in:
-           parser.parse(line)
+            if(not line.isspace() and not line.startswith('/')):
+                parser.parse(line)
