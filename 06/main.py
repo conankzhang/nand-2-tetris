@@ -1,5 +1,5 @@
 import sys
-from assembler import Assembler
+from assembler.assembler import Assembler
 
 def main():
     assembler = Assembler(sys.argv[1])
