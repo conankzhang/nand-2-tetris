@@ -5,7 +5,7 @@ class Parser:
         self.converter = Converter()
 
     def parse(self, line):
-        if line[0] == '@':
+        if line.startswith('@'):
             return self._parse_a_instruction(line)
         else:
             return self._parse_c_instruction(line)
