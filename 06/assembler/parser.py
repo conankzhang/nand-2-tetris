@@ -11,7 +11,13 @@ class Parser:
             return self._parse_c_instruction(line)
 
     def _parse_a_instruction(self, line, line_number):
-        if line.isdigit():
+        symbol = None
+        if line.startswith('('):
+            symbol = line[line.index("(")+1:line.index(")")].strip()
+        else:
+            symbol = line[line.index("@")+1:].strip()
+
+        if symbol.isdigit():
             value = int(line[1:])
             return self.converter.convert_a_instruction(value)
         else:
