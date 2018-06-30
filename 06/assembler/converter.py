@@ -76,6 +76,7 @@ class Converter:
             'THIS' : "3",
             'THAT' : "4"
         }
+        self.symbol_counter = 16;
 
     def convert_a_instruction(self, value):
         return format(value, '016b')
@@ -93,11 +94,17 @@ class Converter:
             jump_binary = self.jump_table[jump]
 
         return begin + comp_binary + dest_binary + jump_binary
-    
+
     def convert_symbol(self, line, line_number):
         symbol_binary = self.symbol_table.get(line)
         if symbol_binary is None:
-            self.symbol_table[line] = line_number + 1
-            symbol_binary = self.symbol_table.get(line)
- 
+            if line.startswith('('):
+                self.symbol_table[line] = line_number + 1
+                symbol_binary = self.symbol_table[line]
+            else:
+                self.symbol_table[line] = self.symbol_counter
+                self.symbol_counter += 1
+
+                symbol_binary = self.symbol_table[line]
+
         return format(symbol_binary, '016b')

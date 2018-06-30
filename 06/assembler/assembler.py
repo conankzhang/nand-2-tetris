@@ -1,5 +1,5 @@
 import os
-from assembler.parser import Parser 
+from assembler.parser import Parser
 
 class Assembler:
     def __init__(self, file):
