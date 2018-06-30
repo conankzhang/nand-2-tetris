@@ -15,11 +15,19 @@ class Parser:
         return self.converter.convert_a_instruction(value)
 
     def _parse_c_instruction(self, line):
-        dest = line[:line.index("=")].strip()
-        comp = line[line.index("=")+1:].strip()
+        dest = None
+        comp = None
+
+        if line.find("=") is not -1:
+            dest = line[:line.index("=")].strip()
+            comp = line[line.index("=")+1:].strip()
+
         jump = None
 
         if line.find(";") is not -1:
-            comp = line[line.index("=")+1:line.index(";")].strip()
             jump = line[line.index(";")+1:].strip()
+
+            if line.find("=") is not -1:
+                comp = line[line.index("=")+1:line.index(";")].strip()
+
         return self.converter.convert_c_instruction(dest, comp, jump)
