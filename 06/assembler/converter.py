@@ -96,15 +96,24 @@ class Converter:
         return begin + comp_binary + dest_binary + jump_binary
 
     def convert_symbol(self, line, line_number):
-        symbol_binary = self.symbol_table.get(line)
+        symbol_binary = None
+        symbol = None
+
+        if line.startswith('('):
+            symbol = line[line.index("(")+1:line.index(")")].strip()
+            symbol_binary = self.symbol_table.get(symbol)
+        else:
+            symbol = line[line.index("@")+1:].strip()
+            symbol_binary = self.symbol_table.get(symbol)
+
         if symbol_binary is None:
             if line.startswith('('):
-                self.symbol_table[line] = line_number + 1
-                symbol_binary = self.symbol_table[line]
+                self.symbol_table[symbol] = line_number
+                symbol_binary = self.symbol_table[symbol]
             else:
-                self.symbol_table[line] = self.symbol_counter
+                self.symbol_table[symbol] = self.symbol_counter
                 self.symbol_counter += 1
 
-                symbol_binary = self.symbol_table[line]
+                symbol_binary = self.symbol_table[symbol]
 
-        return format(symbol_binary, '016b')
+        return format(int(symbol_binary), '016b')

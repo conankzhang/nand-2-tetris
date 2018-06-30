@@ -6,7 +6,7 @@
         {
             "label": "Assemble Add.asm",
             "type": "shell",
-            "command": "python ./06/main.py ./06/max/Max.asm",
+            "command": "python ./06/main.py ./06/rect/Rect.asm",
             "group": {
                 "kind": "build",
                 "isDefault": true
