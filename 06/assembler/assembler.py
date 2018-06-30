@@ -1,10 +1,10 @@
 import sys
 import os
 
-fileIn = open(sys.argv[1], 'r')
+file_in = open(sys.argv[1], 'r')
 
-fileName = os.path.splitext(fileIn.name)[0]
-fileOut = open(fileName + '.hack', 'w')
+file_name = os.path.splitext(file_in.name)[0]
+file_out = open(file_name + '.hack', 'w')
 
-for line in fileIn:
-    fileOut.write(line)
+for line in file_in:
+    file_out.write(line)
