@@ -6,7 +6,7 @@
         {
             "label": "Assemble Add.asm",
             "type": "shell",
-            "command": "python ./06/main.py ./06/pong/PongL.asm",
+            "command": "python ./06/main.py ./06/max/Max.asm",
             "group": {
                 "kind": "build",
                 "isDefault": true

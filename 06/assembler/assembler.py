@@ -12,10 +12,15 @@ class Assembler:
         file_out = open(file_name + '.hack', 'w')
 
         parser = Parser()
+
+        line_number = 0
         for line in file_in:
             if not line.isspace() and not line.startswith('/'):
-                instruction = parser.parse(line)
+                instruction = parser.parse(line.strip(), line_number)
 
                 if instruction is not None:
                     file_out.write(instruction)
                     file_out.write('\n')
+                
+                if not line.startswith('('):
+                    line_number += 1
