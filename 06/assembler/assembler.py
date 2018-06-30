@@ -1,6 +1,4 @@
-import sys
 import os
-
 class Assembler:
     def __init__(self, file):
         self.file = file
