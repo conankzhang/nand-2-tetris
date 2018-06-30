@@ -62,7 +62,8 @@ class Converter:
 
         if dest is not None:
             dest_binary = self.dest_table[dest]
+
         if jump is not None:
-            jump = self.jump_table[jump]
+            jump_binary = self.jump_table[jump]
 
         return begin + comp_binary + dest_binary + jump_binary
