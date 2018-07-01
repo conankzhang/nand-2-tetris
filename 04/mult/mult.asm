@@ -25,6 +25,9 @@
     @product
     M = 0 // product = 0
 
+    @R2
+    M = 0
+
 (LOOP)
     @i
     D = M
